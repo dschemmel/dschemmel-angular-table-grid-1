@@ -1,0 +1,174 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  --default-gap: 0.2cm;
+  --list-min-width: 1500px;
+  --small-gap: calc(var(--default-gap) / 2);
+  --background-color-list: grey;
+  --background-color-list-item: lightgrey;
+  > .list-header {
+    flex: 0 0 auto;
+  }
+}
+
+:host:not(.small) {
+  overflow-x: auto;
+}
+
+:host.small {
+  overflow-x: scroll;
+}
+
+.list-header {
+  .item-1:before {
+    content: 'Nr.';
+  }
+  .item-2:before {
+    content: 'Bearbeiter';
+  }
+  .item-3:before {
+    content: 'Debitor';
+  }
+  .item-4:before {
+    content: 'Status';
+  }
+  .item-5:before {
+    content: 'Produktion';
+  }
+  .item-6:before {
+    content: 'Erledigt';
+  }
+
+  .item-7:before {
+    content: 'Datum';
+  }
+  .item-8:before {
+    content: 'Debitorname';
+  }
+  .item-9:before {
+    content: 'Produktionsart';
+  }
+
+  .item-10:before {
+    content: 'Position';
+  }
+  .item-11:before {
+    content: 'Anzahl, Produkt';
+  }
+  .item-12:before {
+    content: 'Documents';
+  }
+}
+
+@for $i from 1 through 12 {
+  .item-#{$i} {
+    grid-area: c#{$i};
+  }
+}
+
+.sub-area {
+  grid-area: c13;
+}
+
+.list-header {
+  box-sizing: border-box;
+  background-color: var(--background-color-list);
+  min-width: var(--list-min-width);
+  overflow: hidden;
+  padding: var(--small-gap) calc(var(--default-gap) + var(--scrollbarWidth))
+    var(--small-gap) var(--default-gap);
+}
+
+ul {
+  box-sizing: border-box;
+  position: relative;
+  padding: 0;
+  margin: var(--default-gap) 0 0 0;
+  list-style-type: none;
+  overflow-y: auto;
+  min-width: var(--list-min-width);
+}
+
+ul::-webkit-scrollbar {
+  width: 40px;
+  background-color: orange;
+}
+
+ul::-webkit-scrollbar-thumb {
+  background-color: green;
+  border-left: 6px solid;
+  border-right: 6px solid;
+}
+
+ul::-webkit-scrollbar-track {
+  background-color: white;
+  border: grey 6px inset;
+}
+
+ul::-webkit-scrollbar-button:increment {
+  background-color: yellow;
+  border-left: transparent 20px solid;
+  border-right: transparent 20px solid;
+  height: 30px;
+}
+
+ul::-webkit-scrollbar-button:decrement {
+  background-color: yellow;
+  border-left: transparent 20px solid;
+  border-right: transparent 20px solid;
+  height: 30px;
+}
+
+ul::-webkit-scrollbar-button:increment {
+  border-top: red 30px solid;
+}
+
+ul::-webkit-scrollbar-button:decrement {
+  border-bottom: red 30px solid;
+}
+
+ul::-webkit-scrollbar-button:increment:hover {
+  border-top-color: blue;
+}
+
+ul::-webkit-scrollbar-button:decrement:hover {
+  border-bottom-color: blue;
+}
+
+li {
+  background-color: var(--background-color-list-item);
+  margin-bottom: var(--small-gap);
+  padding: var(--small-gap) var(--default-gap);
+
+  &:hover {
+    font-weight: bold;
+  }
+}
+
+.list-header > div,
+li > div {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.list-header,
+li,
+.sub-area > div {
+  display: grid;
+  grid-template-columns: 2cm 1fr 3fr 4.5cm 2cm 2cm;
+  grid-template-rows: auto;
+}
+
+.list-header {
+  grid-template-areas: 'c1 c2 c3 c4 c5 c6' 'c7 c7 c8 c9 . .' '. c10 c11 . c12 .';
+}
+
+.sub-area > div {
+  grid-template-areas: '. c1 c2 c2 c3 .';
+}
+
+li {
+  grid-template-areas: 'c1 c2 c3 c4 c5 c6' 'c7 c7 c8 c9 . .' 'c13 c13 c13 c13 c13 c13';
+}
